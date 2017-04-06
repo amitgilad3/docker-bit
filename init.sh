@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -x
 if [ $DEVELOPMENT = true ]; then
     ln -sf $BITPATH/bin/bit.js /usr/local/bin/bit
@@ -9,3 +9,4 @@ fi
 
 bit init --bare
 
+node /ssh/index.js

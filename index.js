@@ -6,8 +6,8 @@ const ssh2 = require('ssh2');
 const utils = ssh2.utils;
 const shell = require('shelljs');
 
-const privateKey = process.env.PRIVATE_KEY
-const publicKey = process.env.PUBLIC_KEY
+const privateKey = process.env.PRIVATE_KEY;
+const publicKey = process.env.PUBLIC_KEY;
 
 const pubKey = utils.genPublicKey(utils.parseKey(fs.readFileSync(`/root/.ssh/${publicKey}`)));
 
@@ -42,8 +42,8 @@ new ssh2.Server({
       var session = accept();
       session.once('exec', function(accept, reject, info) {
         console.log('Client wants to execute: ' + inspect(info.command));
-        // Run external tool synchronously 
-        shell.exec(info.command, function(code, stdout, stderr) {
+        // Run external tool synchronously
+        shell.exec(info.command, {cwd:'/scope'}, function(code, stdout, stderr) {
            var stream = accept();
             stream.stderr.write(stderr);
             stream.write(stdout);

@@ -9,9 +9,11 @@ RUN sh -c "echo 'deb http://bitsrc.jfrog.io/bitsrc/bit-deb all stable' >> /etc/a
 
 RUN mkdir /root/.ssh
 RUN mkdir /scope
-WORKDIR /scope
-ADD . .
-RUN chmod +x init.sh
+RUN mkdir /ssh
+WORKDIR /ssh
+ADD index.js .
+ADD package.json  .
+RUN npm i
 ENV BITPATH=/bit-bin
 ENV DEVELOPMENT=false
 
@@ -19,5 +21,8 @@ ENV DEVELOPMENT=false
 ENV PRIVATE_KEY=id_rsa 
 ENV PUBLIC_KEY=id_rsa.pub
 
-EXPOSE 3200
-CMD ["./init.sh && node index.js"]
+WORKDIR /scope
+ADD init.sh  .
+RUN chmod +x init.sh
+EXPOSE 3000
+CMD /bin/bash init.sh
