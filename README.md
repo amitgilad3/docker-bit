@@ -6,7 +6,6 @@ Requirments:
 
 
 ###DEVELOPMENT:
-
     docker run --rm --name bit -p 3000:3000  --volume <path to bit code>:/bit-bin  --volume ~/.ssh:/root/.ssh --env 'DEVELOPMENT=true'  amitg87/bit
 
 ###Remote scope with latest stabel version: 
